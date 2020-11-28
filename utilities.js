@@ -17,5 +17,9 @@
    }
  }
 
+ utils.itemByName = (bot, name) => {
+   return bot.inventory.items().filter(items => items.name === name)[0]
+ }
+
  // Export Module
  module.exports = utils
