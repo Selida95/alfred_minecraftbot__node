@@ -7,7 +7,7 @@
  // Dependencies
 
  // Define utilities object
- var util = {}
+ var utils = {}
 
  utils.itemToString = (item) => {
    if (item) {
@@ -18,4 +18,4 @@
  }
 
  // Export Module
- module.exports = util
+ module.exports = utils
