@@ -1,0 +1,19 @@
+{
+  "name": "alfred_minecraftbot__node",
+  "version": "1.0.0",
+  "description": "A.L.F.R.E.D | Minecraft Bot built using Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Selida95/alfred_minecraftbot__node.git"
+  },
+  "author": "Elyas Page (Selida)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Selida95/alfred_minecraftbot__node/issues"
+  },
+  "homepage": "https://github.com/Selida95/alfred_minecraftbot__node#readme"
+}
