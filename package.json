@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Selida95/alfred_minecraftbot__node#readme",
   "dependencies": {
-    "mineflayer": "^2.34.0"
+    "mineflayer": "^2.34.0",
+    "mineflayer-pathfinder": "^1.0.12"
   }
 }
