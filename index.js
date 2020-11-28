@@ -16,3 +16,7 @@
    username : config.minecraft.bot.username,
    password : config.minecraft.bot.password
  })
+
+ bot.once('spawn', () => {
+   bot.mcData = require('minecraft-data')(bot.version)
+ })
