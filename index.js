@@ -20,3 +20,9 @@
  bot.once('spawn', () => {
    bot.mcData = require('minecraft-data')(bot.version)
  })
+
+ bot.on('physicTick', () => {
+   // Life signs
+   const entity = bot.nearestEntity()
+   if (entity) bot.lookAt(entity.position.offset(0, entity.height, 0))
+ })
