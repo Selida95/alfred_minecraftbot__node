@@ -5,18 +5,21 @@
  */
 
  // Dependencies
- const MinecraftBot = require('./minecraft_bot')
+ const mineflayer = require('mineflayer')
+ const { pathfinder, Movements, goals } = require('mineflayer-pathfinder')
+ const { GoalFollow, GoalBlock } = goals
 
  // Config
  const config = require('./config')
 
- const bot = new MinecraftBot({
+ const bot = mineflayer.createBot({
    host : config.minecraft.host,
    port : config.minecraft.port,
    username : config.minecraft.bot.username,
-   password : config.minecraft.bot.password,
-   logErrors : false
+   password : config.minecraft.bot.password
  })
+
+ bot.loadPlugin(pathfinder)
 
  bot.once('spawn', () => {
    bot.mcData = require('minecraft-data')(bot.version)
@@ -28,4 +31,27 @@
    if (entity) bot.lookAt(entity.position.offset(0, entity.height, 0))
  })
 
- bot.on('chat', onchat(username, message))
+ const onChat = (username, message) => {
+   const args = message.split(' ');
+
+   if (args[0] === 'come') {
+     followPlayer(username)
+   }
+ }
+
+ bot.on('chat', onChat)
+
+ const followPlayer = (username) => {
+   const playerEntity = bot.players[username]
+
+   if (!playerEntity) {
+     bot.chat("I can't see you.")
+     return
+   }
+
+   const movements = new Movements(bot, bot.mcData)
+   const goal = new GoalFollow(playerEntity.entity, 1)
+
+   bot.pathfinder.setMovements(movements)
+   bot.pathfinder.setGoal(goal, true)
+ }
