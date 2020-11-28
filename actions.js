@@ -41,7 +41,28 @@
    }
  }
 
- 
+ actions.tossItem = (bot, item_name, amount) => {
+   const checkIfTossed = (error) => {
+     if (error) {
+       bot.chat(`Unable to toss: ${error.message}`)
+     } else if (amount) {
+       bot.chat(`Tossed ${amount} x ${item_name}.`)
+     } else {
+       bot.chat(`Tossed ${item_name}.`)
+     }
+   }
+   
+   amount = parseInt(amount, 10)
+   let item = utils.itemByName(bot, item_name)
+
+   if (!item) {
+     bot.chat('Item not found.')
+   } else if (amount){
+     bot.toss(item.type, null, amount, checkIfTossed)
+   } else {
+     bot.tossStack(item, checkIfTossed)
+   }
+ }
 
  // Export Module
  module.exports = actions

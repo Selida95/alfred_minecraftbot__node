@@ -45,6 +45,15 @@
    if (args[0] === 'list_items') {
      actions.sayItems(bot)
    }
+
+   if (args[0] === 'toss') {
+     let item = args[1] ? args[1] : false
+     let amount = args[2] ? args[2] : 1
+
+     if (item) {
+       actions.tossItem(bot, item, amount)
+     }
+   }
  }
 
  bot.on('chat', onChat)
