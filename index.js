@@ -8,6 +8,7 @@
  const mineflayer = require('mineflayer')
  const { pathfinder, Movements, goals } = require('mineflayer-pathfinder')
  const { GoalFollow, GoalBlock } = goals
+ const actions = require('./actions')
 
  // Config
  const config = require('./config')
@@ -35,31 +36,12 @@
    const args = message.split(' ');
 
    if (args[0] === 'come') {
-     followPlayer(username)
+     actions.followPlayer(bot, username)
    }
 
    if (args[0] === 'stop') {
-     stopTask()
+     actions.stopTask(bot)
    }
  }
 
  bot.on('chat', onChat)
-
- const followPlayer = (username) => {
-   const playerEntity = bot.players[username]
-
-   if (!playerEntity) {
-     bot.chat("I can't see you.")
-     return
-   }
-
-   const movements = new Movements(bot, bot.mcData)
-   const goal = new GoalFollow(playerEntity.entity, 1)
-
-   bot.pathfinder.setMovements(movements)
-   bot.pathfinder.setGoal(goal, true)
- }
-
- const stopTask = () => {
-   bot.pathfinder.setGoal()
- }
