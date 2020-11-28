@@ -41,6 +41,10 @@
    if (args[0] === 'stop') {
      actions.stopTask(bot)
    }
+
+   if (args[0] === 'list_items') {
+     actions.sayItems(bot)
+   }
  }
 
  bot.on('chat', onChat)
