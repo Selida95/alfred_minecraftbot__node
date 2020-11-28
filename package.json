@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Selida95/alfred_minecraftbot__node/issues"
   },
-  "homepage": "https://github.com/Selida95/alfred_minecraftbot__node#readme"
+  "homepage": "https://github.com/Selida95/alfred_minecraftbot__node#readme",
+  "dependencies": {
+    "mineflayer": "^2.34.0"
+  }
 }
