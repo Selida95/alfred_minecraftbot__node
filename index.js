@@ -5,7 +5,7 @@
  */
 
  // Dependencies
- const MinecraftBot = require('./mineraft_bot')
+ const MinecraftBot = require('./minecraft_bot')
 
  // Config
  const config = require('./config')
