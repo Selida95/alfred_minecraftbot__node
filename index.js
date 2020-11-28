@@ -5,16 +5,17 @@
  */
 
  // Dependencies
- const mineflayer = require('mineflayer')
+ const MinecraftBot = require('./mineraft_bot')
 
  // Config
  const config = require('./config')
 
- const bot = mineflayer.createBot({
+ const bot = new MinecraftBot({
    host : config.minecraft.host,
    port : config.minecraft.port,
    username : config.minecraft.bot.username,
-   password : config.minecraft.bot.password
+   password : config.minecraft.bot.password,
+   logErrors : false
  })
 
  bot.once('spawn', () => {
@@ -26,3 +27,5 @@
    const entity = bot.nearestEntity()
    if (entity) bot.lookAt(entity.position.offset(0, entity.height, 0))
  })
+
+ bot.on('chat', onchat(username, message))
