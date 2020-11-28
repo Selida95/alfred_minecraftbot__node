@@ -6,8 +6,7 @@
 
  // Dependencies
  const mineflayer = require('mineflayer')
- const { pathfinder, Movements, goals } = require('mineflayer-pathfinder')
- const { GoalFollow, GoalBlock } = goals
+ const { pathfinder } = require('mineflayer-pathfinder')
  const actions = require('./actions')
 
  // Config
