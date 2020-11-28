@@ -37,6 +37,10 @@
    if (args[0] === 'come') {
      followPlayer(username)
    }
+
+   if (args[0] === 'stop') {
+     stopTask()
+   }
  }
 
  bot.on('chat', onChat)
@@ -54,4 +58,8 @@
 
    bot.pathfinder.setMovements(movements)
    bot.pathfinder.setGoal(goal, true)
+ }
+
+ const stopTask = () => {
+   bot.pathfinder.setGoal()
  }
