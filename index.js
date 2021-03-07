@@ -7,7 +7,7 @@
  // Dependencies
  const mineflayer = require('mineflayer')
  const { pathfinder } = require('mineflayer-pathfinder')
- const actions = require('./actions')
+ const commands = require('./lib/command_handler')
 
  // Config
  const config = require('./config')
@@ -23,37 +23,52 @@
 
  bot.once('spawn', () => {
    bot.mcData = require('minecraft-data')(bot.version)
+   bot.taskState = false
+   commands.load(bot)
  })
 
  bot.on('physicTick', () => {
    // Life signs
    const entity = bot.nearestEntity()
-   if (entity) bot.lookAt(entity.position.offset(0, entity.height, 0))
+   if (entity && bot.taskState === false) bot.lookAt(entity.position.offset(0, entity.height, 0))
  })
 
- const onChat = (username, message) => {
-   const args = message.split(' ');
+ bot.on('chat', (username, message) => {
+   if (username === bot.username) return;
+   if (username.toLowerCase() !== 'selida') return
 
-   if (args[0] === 'come') {
-     actions.followPlayer(bot, username)
+   const args = message.toLowerCase().trim().split(/ +/);
+   // Remove bot wake word.
+   //args.splice(args.indexOf(config.bot.wake_word), 1);
+
+   const command = args.shift().toLowerCase();
+
+   if (!bot.commands.has(command)) return;
+
+   try {
+     bot.commands.get(command).execute(bot, args, username);
+   } catch (error) {
+     console.error(error);
+     bot.chat('There was an error trying to execute that command!');
    }
+ })
 
-   if (args[0] === 'stop') {
-     actions.stopTask(bot)
-   }
+ bot.on('sleep', () => {
+   bot.chat('Good night!')
+ })
+ bot.on('wake', () => {
+   bot.chat('Good morning!')
+ })
 
-   if (args[0] === 'list_items') {
-     actions.sayItems(bot)
-   }
 
-   if (args[0] === 'toss') {
-     let item = args[1] ? args[1] : false
-     let amount = args[2] ? args[2] : 1
 
-     if (item) {
-       actions.tossItem(bot, item, amount)
-     }
-   }
- }
+ var readline = require('readline');
+ var rl = readline.createInterface({
+   input: process.stdin,
+   output: process.stdout,
+   terminal: false
+ });
 
- bot.on('chat', onChat)
+ rl.on('line', (line) => {
+     bot.chat(line)
+ })
